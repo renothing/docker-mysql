@@ -1,0 +1,25 @@
+clone:
+  recursive: true
+  tags: true
+
+pipeline:
+  build-dev:
+    image: docker
+    environment:
+      - NAME=mysql57
+    commands:
+      - docker build --force-rm -t myubuntu/${NAME}:${DRONE_TAG=latest} -f Dockerfile.ubuntu .
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    when:
+      branch: develop
+  build-prod:
+    image: docker
+    environment:
+      - NAME=mysql57
+    commands:
+      - docker build --force-rm -t myubuntu/${NAME}:${DRONE_TAG=latest} -f Dockerfile.ubuntu .
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    when:
+      branch: [master,release]
