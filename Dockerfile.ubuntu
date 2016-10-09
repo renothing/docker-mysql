@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 MAINTAINER renothing 'frankdot@qq.com'
-LABEL role='mysql' version='5.7.14' tags='mysql5.7' description='percona server image for ubuntu'
+LABEL role='mysql' version='5.7.14' tags='mysql' description='percona server image for ubuntu'
 #set language enviroments
 ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 EDITOR=vim \
   PASS='admin' POOLSIZE='4g'
