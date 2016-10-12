@@ -11,4 +11,4 @@ test -f /etc/mysql/my.cnf || cp -rf /opt/my.cnf /etc/mysql/my.cnf
 datadir=`grep ^datadir opt/my.cnf |awk '{print $NF}'`
 test -f $datadir/auto.cnf || sh /opt/init.sh	
 sed -i "s/innodb_buffer_pool_size=.*/innodb_buffer_pool_size=${POOLSIZE}/g" /etc/mysql/my.cnf
-ps aux|grep -v grep|grep -q mysql || rm -rf /var/run/mysqld/mysqld.pid /var/run/mysqld/mysqld.sock && exec /usr/local/mysql/bin/mysqld
+ps aux|grep -v grep|grep -q mysql || rm -rf /var/run/mysqld/mysqld.pid /var/run/mysqld/mysqld.sock /var/run/mysqld/mysqld.sock.lock && exec /usr/local/mysql/bin/mysqld
