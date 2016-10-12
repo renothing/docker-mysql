@@ -6,9 +6,9 @@ pipeline:
   build-dev:
     image: docker
     environment:
-      - NAME=mysql57
+      - NAME=mysql
     commands:
-      - docker build --force-rm -t myubuntu/${NAME}:${DRONE_TAG=latest} -f Dockerfile.ubuntu .
+      - docker build --force-rm -t winshare/${NAME}:${DRONE_TAG=latest} -f Dockerfile .
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     when:
@@ -16,9 +16,9 @@ pipeline:
   build-prod:
     image: docker
     environment:
-      - NAME=mysql57
+      - NAME=mysql
     commands:
-      - docker build --force-rm -t myubuntu/${NAME}:${DRONE_TAG=latest} -f Dockerfile.ubuntu .
+      - docker build --force-rm -t winshare/${NAME}:${DRONE_TAG=latest} -f Dockerfile .
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     when:

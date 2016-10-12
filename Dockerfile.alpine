@@ -1,0 +1,35 @@
+FROM alpine:3.4
+MAINTAINER renothing 'frankdot@qq.com'
+LABEL role='mysql' version='5.7.14' tags='mysql' description='percona server image for alpine'
+#set language enviroments
+ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
+  MAJOR=5.7 \
+  VERSION=5.7.14-8 \
+  TIMEZONE='Asia/Shanghai' \
+  PASS='admin' POOLSIZE='1g'
+# MASTER='masterip'
+# REPLICATION_USER='replicate'
+# REPLICATION_PASS='replicatepass'
+#install software
+#RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && apk update && \ 
+RUN apk update && \
+ apk add tzdata openssl-dev libssl1.0 libaio libgcc libstdc++ execline && \
+ addgroup -g 101 -S mysql && \
+ adduser -u 101 -D -S -G mysql -h /var/lib/mysql mysql && \
+ wget https://www.percona.com/downloads/Percona-Server-${MAJOR}/Percona-Server-${VERSION}/binary/tarball/Percona-Server-${VERSION}-Linux.x86_64.ssl100.tar.gz -O /tmp/perconaserver.tar.gz && \
+ tar -xf /tmp/perconaserver.tar.gz -C /usr/local && \
+ ln -s /usr/local/Percona-Server-${VERSION}-Linux.x86_64.ssl100 /usr/local/mysql && \
+ ln -s /usr/local/mysql/bin/mysql /usr/bin/mysql && \
+ ln -s /usr/local/mysql/bin/mysqladmin /usr/bin/mysqladmin && \
+ rm -rf /usr/local/Percona-Server-${VERSION}-Linux.x86_64.ssl100/mysql-test && \
+ rm -rf /usr/local/mysql/mysql-test && \
+ rm -rf /var/cache/apk/* /tmp/* 
+#install scripts
+COPY opt/* /opt/
+VOLUME ["/etc/mysql", "/var/lib/mysql","/var/log/mysql"]
+#forwarding port
+EXPOSE 3306
+#set default command
+ENTRYPOINT ["sh"]
+CMD ["/opt/startservice.sh"]
+###oracle mysql can't work with musl-libc current. don't use this file.
