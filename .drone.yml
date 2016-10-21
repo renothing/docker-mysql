@@ -1,25 +1,40 @@
+#global docker info
+dockerinfo: &dockerinfo
+  image: plugins/docker
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+  force_tag: true
+  mirror: "https://docker.mirrors.ustc.edu.cn"
+#repo name for tomcat
+mysql: &mysql
+  repo: winshare/mysql
+  file: Dockerfile
+#building
 clone:
   recursive: true
   tags: true
 
 pipeline:
-  build-dev:
-    image: docker
-    environment:
-      - NAME=mysql
-    commands:
-      - docker build --force-rm -t winshare/${NAME}:${DRONE_TAG=dev}-rc -f Dockerfile .
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    when:
-      branch: develop
-  build-prod:
-    image: docker
-    environment:
-      - NAME=mysql
-    commands:
-      - docker build --force-rm -t winshare/${NAME}:${DRONE_TAG=latest} -f Dockerfile .
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    when:
-      branch: [master,release]
+  docker:
+    dev-push:
+      <<: *dockerinfo
+      <<: *mysql
+      tag: ${DRONE_TAG=latest}-dev
+      when:
+        branch: develop
+    prod-push:
+      <<: *dockerinfo
+      <<: *mysql
+      tag: latest
+      when:
+        branch: [ master, release ]
+        event: push
+    prod-tag:
+      <<: *dockerinfo
+      <<: *mysql
+      tags:
+        - latest
+        - ${DRONE_TAG=latest}-dev
+      when:
+        branch: [ master, release ]
+        event: tag
