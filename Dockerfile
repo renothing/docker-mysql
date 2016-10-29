@@ -11,8 +11,8 @@ ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
 # REPLICATION_USER='replicate'
 # REPLICATION_PASS='replicatepass'
 #install software
-RUN sed -i 's/archive.ubuntu/mirrors.aliyun/g' /etc/apt/sources.list && apt-get update && \
-#RUN apt-get update && \
+#RUN sed -i 's/archive.ubuntu/mirrors.aliyun/g' /etc/apt/sources.list && apt-get update && \
+RUN apt-get update && \
  apt-get install --no-install-recommends -y wget ca-certificates libssl-dev libssl1.0.0 libjemalloc1 libmecab2 libaio1 libnuma1 psmisc libwrap0 mysql-common && \
  codename=`awk -F= '/DISTRIB_CODENAME/{print $2}' /etc/lsb-release` && \
  wget https://repo.percona.com/apt/percona-release_0.1-4.${codename}_all.deb -O /tmp/percona.deb && dpkg -i /tmp/percona.deb && apt-get update && \
@@ -25,5 +25,5 @@ VOLUME ["/etc/mysql", "/var/lib/mysql","/var/log/mysql"]
 #forwarding port
 EXPOSE 3306
 #set default command
-ENTRYPOINT ["bash"]
+ENTRYPOINT ["sh"]
 CMD ["/opt/startservice.sh"]
