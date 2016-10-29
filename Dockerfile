@@ -21,7 +21,7 @@ RUN apt-get update && \
  apt-get clean && apt-get autoremove -y
 #install scripts
 COPY opt/* /opt/
-VOLUME ["/etc/mysql", "/var/lib/mysql","/var/log/mysql"]
+#VOLUME ["/etc/mysql", "/var/lib/mysql","/var/log/mysql"]
 #forwarding port
 EXPOSE 3306
 #set default command
