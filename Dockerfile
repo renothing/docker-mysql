@@ -1,10 +1,10 @@
 FROM ubuntu:16.04
 MAINTAINER renothing 'frankdot@qq.com'
-LABEL role='mysql' version='5.7.15' tags='mysql' description='percona server image for ubuntu'
+LABEL role='mysql' version='5.7.16' tags='mysql' description='percona server image for ubuntu'
 #set language enviroments
 ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
   MAJOR=5.7 \
-  VERSION=5.7.15-9 \
+  VERSION=5.7.16-10 \
   TIMEZONE='Asia/Shanghai' \
   PASS='admin' POOLSIZE='128m'
 # MASTER='masterip'
