@@ -20,7 +20,7 @@ RUN apt-get update && \
  rm -rf /etc/mysql/my.cnf /var/lib/mysql/* /tmp/* && \
  apt-get clean && apt-get autoremove -y
 #install scripts
-COPY opt/* /opt/
+ADD opt /opt/
 #VOLUME ["/etc/mysql", "/var/lib/mysql","/var/log/mysql"]
 #forwarding port
 EXPOSE 3306
