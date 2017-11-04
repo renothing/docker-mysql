@@ -4,7 +4,7 @@ LABEL role='mysql' version='5.7.17' tags='mysql' description='percona server ima
 #set language enviroments
 ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
   MAJOR=5.7 \
-  VERSION=5.7.17-13 \
+  VERSION=5.7.19-17 \
   TIMEZONE='Asia/Shanghai' \
   PASS='admin' POOLSIZE='128m'
 # MASTER='masterip'
