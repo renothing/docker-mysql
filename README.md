@@ -8,7 +8,7 @@ This repository contains **Dockerfile** of [Percona Server](http://www.percona.c
 
 ### Base Docker Image
 
-* [dockerfile/ubuntu](http://dockerfile.github.io/#/ubuntu)
+* [dockerfile/debian](http://dockerfile.github.io/#/debian)
 
 
 ### Installation
