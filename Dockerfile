@@ -1,9 +1,9 @@
-FROM debian:9-slim
+FROM debian:10-slim
 LABEL role='mysql' author='renothing' tags='mysql' description='percona server image for debian'
 #set language enviroments
 ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
   MAJOR=5.7 \
-  VERSION=5.7.26-29 \
+  VERSION=5.7.27-30 \
   TIMEZONE='Asia/Shanghai' \
   PASS='admin' POOLSIZE='128m'
 # MASTER='masterip'
@@ -11,7 +11,7 @@ ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
 # REPLICATION_PASS='replicatepass'
 #install software
 RUN apt update && \
- apt install --no-install-recommends -y gnupg2 lsb-release tzdata wget ca-certificates libjemalloc1 && \
+ apt install --no-install-recommends -y gnupg2 lsb-release tzdata wget ca-certificates libjemalloc2 && \
  codename=$(lsb_release -sc) && \
  wget https://repo.percona.com/apt/percona-release_latest.${codename}_all.deb -O /tmp/percona.deb && dpkg -i /tmp/percona.deb && apt-get update && \
  DEBIAN_FRONTEND=noninteractive apt install -qq --no-install-recommends -y percona-server-server-${MAJOR}=${VERSION}-1.${codename} && \
