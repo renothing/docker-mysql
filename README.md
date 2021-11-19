@@ -8,7 +8,7 @@ This repository contains **Dockerfile** of [Percona Server](http://www.percona.c
 
 ### Base Docker Image
 
-* [dockerfile/debian](http://dockerfile.github.io/#/debian)
+* [dockerfile/ubuntu](http://dockerfile.github.io/#/ubuntu)
 
 
 ### Installation
@@ -17,7 +17,7 @@ This repository contains **Dockerfile** of [Percona Server](http://www.percona.c
 
 2. Download [automated build](https://hub.docker.com/r/renothing/mysql/) from public [Docker Hub Registry](https://registry.hub.docker.com/): `docker pull renothing/mysql:tag`
 
-   (alternatively, you can build an image from Dockerfile: `docker build -t="renothing/mysql:tag" github.com/renothing/docker-mysql57`)
+   (alternatively, you can build an image from Dockerfile: `docker build -t="renothing/mysql:tag" github.com/renothing/docker-mysql`)
    default innodb_buffer_pool_size=4g, please specify it before running
    default root password is "admin" if you didn't specify, please change it letter
 

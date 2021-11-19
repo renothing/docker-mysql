@@ -1,40 +1,17 @@
-#global docker info
-dockerinfo: &dockerinfo
-  image: plugins/docker
-  volumes:
-    - /var/run/docker.sock:/var/run/docker.sock
-  force_tag: true
-  mirror: "https://docker.mirrors.ustc.edu.cn"
-#repo name for tomcat
-mysql: &mysql
-  repo: winshare/mysql
-  file: Dockerfile
-#building
-clone:
-  recursive: true
-  tags: true
+kind: pipeline
+name: default
 
-pipeline:
-  docker:
-    dev-push:
-      <<: *dockerinfo
-      <<: *mysql
-      tag: ${DRONE_TAG=latest}-dev
-      when:
-        branch: develop
-    prod-push:
-      <<: *dockerinfo
-      <<: *mysql
-      tag: latest
-      when:
-        branch: [ master, release ]
-        event: push
-    prod-tag:
-      <<: *dockerinfo
-      <<: *mysql
-      tags:
-        - latest
-        - ${DRONE_TAG=latest}-dev
-      when:
-        branch: [ master, release ]
-        event: tag
+steps:
+- name: build and push to docker
+  image: plugins/kaniko
+  settings:
+    repo: renothing/mysql
+    auto_tag: true
+    pull_image: true
+    username: 
+      from_secret: dockerhub_login
+    password:
+      from_secret: dockerhub_token
+    tags:
+    #- latest
+     - 8
